@@ -4,7 +4,7 @@ A VIO pipeline that produces 6DoF camera poses from egocentric video + IMU data,
 
 ## Problem
 
-Recover a construction worker's 3D head position from a head-mounted camera (1080p, 30fps) and IMU (30Hz). The optimization target is **RPE (Relative Pose Error) over 3-minute windows** — local trajectory accuracy, not global drift.
+Recover a factory worker's 3D head position from a head-mounted camera (1080p, 30fps) and IMU (30Hz). The optimization target is **RPE (Relative Pose Error) over 3-minute windows** — local trajectory accuracy, not global drift.
 
 ## Approach
 
@@ -46,7 +46,7 @@ Video Frames (30fps, 1080p)          IMU (30Hz, accel + gyro)
 
 2. **No accelerometer double-integration**: At 30Hz, accelerometer double-integration explodes due to gravity cancellation errors compounding quadratically. We use gyro for rotation only.
 
-3. **Scale from optical flow**: Monocular vision has inherent scale ambiguity. We estimate scale from median pixel displacement / focal length * assumed scene depth (~3m for indoor construction). A running median buffer (90 frames) smooths this estimate.
+3. **Scale from optical flow**: Monocular vision has inherent scale ambiguity. We estimate scale from median pixel displacement / focal length * assumed scene depth (~3m for indoor factory environment). A running median buffer (90 frames) smooths this estimate.
 
 4. **No PnP map anchoring**: We tried triangulating a 3D feature map and using PnP for scale recovery, but it caused the trajectory to "lock" in place — PnP anchors to the map built with the initial (possibly wrong) scale, creating a feedback loop. Pure odometry with heuristic scale is more robust.
 
@@ -87,7 +87,7 @@ Video Frames (30fps, 1080p)          IMU (30Hz, accel + gyro)
 | Mean drift ratio | 8.9% |
 | VO success rate | 99.9% frames |
 
-Walking speeds of 0.5-1.3 m/s are consistent with construction worker activity (walking, working, moving between tasks).
+Walking speeds of 0.5-1.3 m/s are consistent with factory worker activity (walking, operating machinery, moving between stations).
 
 ## Dataset
 

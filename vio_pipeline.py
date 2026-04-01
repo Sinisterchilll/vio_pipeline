@@ -165,7 +165,7 @@ class VIOPipeline:
 
                         # Scale from pixel displacement
                         dpx = np.median(np.linalg.norm(cp[inl] - pp[inl], axis=1))
-                        # Scene depth assumption: ~3m (typical for indoor construction)
+                        # Scene depth assumption: ~3m (typical for indoor factory environment)
                         raw_scale = (dpx / FOCAL) * 3.0
                         raw_scale = max(0.0001, min(raw_scale, 1.5))
                         scale_buf.append(raw_scale)
