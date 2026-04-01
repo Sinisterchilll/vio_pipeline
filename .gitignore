@@ -1,0 +1,17 @@
+# Data (8.4GB video + IMU)
+data/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+
+# Logs
+batch_log.txt
+nohup.out
+
+# Large zip
+submission_poses.zip
